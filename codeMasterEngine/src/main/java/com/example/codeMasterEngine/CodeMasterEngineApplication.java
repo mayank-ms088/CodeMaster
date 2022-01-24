@@ -1,0 +1,13 @@
+package com.example.codeMasterEngine;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CodeMasterEngineApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(CodeMasterEngineApplication.class, args);
+	}
+
+}
