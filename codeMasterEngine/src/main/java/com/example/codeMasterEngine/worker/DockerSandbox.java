@@ -88,9 +88,9 @@ public class DockerSandbox {
 
         private CodeExecutionResponse execute() throws IOException, InterruptedException {
                 String dockerScript = String.format("chmod 777 -R %1$s && cd %1$s && ./DockerTimeout.sh ", folder,path);
-                String codeFile = "./" + file_name + compiler.ext;
-                String compileCmd = String.format("\"./compile.sh \\\"%1$s\\\"\"", compiler.compile_cmd);
-                String cmd = String.format("%1$s %2$ss -i -t -v %3$s:/usercode -w /usercode %4$s %5$s",dockerScript,"10",path+folder,vm_name,compileCmd);
+                String codeFile = file_name + compiler.ext;
+                String compileCmd = String.format("./compile.sh \\\"%1$s\\\" %2$s %3$s %4$s", compiler.compile_cmd,compiler.output_cmd, codeFile,2000);
+                String cmd = String.format("%1$s %2$ss -i -t -v %3$s:/usercode -w /usercode %4$s /bin/bash -c \"%5$s\"",dockerScript,"10",path+folder,vm_name,compileCmd);
                 log.info(cmd);
                 Process process=execCmd(cmd);
                 if(process.waitFor(10L,TimeUnit.SECONDS)){

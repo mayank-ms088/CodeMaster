@@ -98,8 +98,9 @@ do
   fi
   echo -e "${BLUE}TESTCASE $i:${NC}";
 
+#echo "$(OUTPUT_CMD < $TEST_CASE_IN)";
   #fetching program time
-  time -p (OUTPUT_CMD < $TEST_CASE_IN > .$CODEFILE.out) 2> .time_info;
+  time -p ($OUTPUT_CMD < $TEST_CASE_IN > .$CODEFILE.out) 2> .time_info;
 
   EX_CODE=$?;
   if [ $EX_CODE -eq 137 ] || [ $EX_CODE -eq 152 ]
@@ -107,7 +108,7 @@ do
     echo -e "$TLE"
   elif [ $EX_CODE -ne 0 ]
   then
-    echo -e "$RE"
+    echo -e "$EX_CODE"
   else
     PROG_TIME=$(cat .time_info | grep real | cut -d" " -f2);
     #cheking for time
